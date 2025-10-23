@@ -69,35 +69,36 @@
     <!-- Header & Navigation --><header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <!-- 
-                FIX: Changed to FULL ABSOLUTE Google Site URL for home.
+                FIX: Changed to relative link for GitHub Pages.
                 REMOVED target="_top".
             -->
-            <a href="https://sites.google.com/view/leekijung/home#top" class="text-xl font-bold text-gray-800">Ki Jung Lee, PhD</a>
+            <a href="home.html#top" class="text-xl font-bold text-gray-800">Ki Jung Lee, PhD</a>
             <div class="hidden md:flex items-center space-x-8">
                 <!-- 
-                    FIX: Changed all links to FULL ABSOLUTE Google Site URLs.
+                    FIX: Changed all links to relative links for GitHub Pages.
                     REMOVED target="_top".
                 -->
-                <a href="https://sites.google.com/view/leekijung/home#about" class="text-gray-600 hover:text-blue-600">About</a>
-                <a href="https://sites.google.com/view/leekijung/home#ux-portfolio" class="text-gray-600 hover:text-blue-600">UX Research</a>
-                <a href="https://sites.google.com/view/leekijung/home#ds-portfolio" class="text-gray-600 hover:text-blue-600">Data Science</a>
-                <a href="https://sites.google.com/view/leekijung/home#publications" class="text-gray-600 hover:text-blue-600">Publications</a>
-                <a href="https://sites.google.com/view/leekijung/home#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+                <a href="home.html#about" class="text-gray-600 hover:text-blue-600">About</a>
+                <a href="home.html#ux-portfolio" class="text-gray-600 hover:text-blue-600">UX Research</a>
+                <a href="home.html#ds-portfolio" class="text-gray-600 hover:text-blue-600">Data Science</a>
+                <a href="home.html#publications" class="text-gray-600 hover:text-blue-600">Publications</a>
+                <a href="home.html#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
             </div>
              <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <!-- FIX: Removed stray 'S' -->
             </button>
         </nav>
         <!-- Mobile Menu --><div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4">
             <!-- 
-                FIX: Changed all links to FULL ABSOLUTE Google Site URLs.
+                FIX: Changed all links to relative links for GitHub Pages.
                 REMOVED target="_top".
             -->
-            <a href="https://sites.google.com/view/leekijung/home#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
-            <a href="https://sites.google.com/view/leekijung/home#ux-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">UX Research</a>
-            <a href="https://sites.google.com/view/leekijung/home#ds-portfolio" class="block py-2 text-gray-600 hover:text-blue-6all.html">Data Science</a>
-            <a href="https://sites.google.com/view/leekijung/home#publications" class="block py-2 text-gray-600 hover:text-blue-600">Publications</a>
-            <a href="https://sites.google.com/view/leekijung/home#contact" class="block mt-2 text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+            <a href="home.html#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+            <a href="home.html#ux-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">UX Research</a>
+            <a href="home.html#ds-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">Data Science</a>
+            <a href="home.html#publications" class="block py-2 text-gray-600 hover:text-blue-600">Publications</a>
+            <a href="home.html#contact" class="block mt-2 text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
         </div>
     </header>
 
@@ -105,10 +106,10 @@
         <div class="max-w-5xl mx-auto">
             <div class="mb-8">
                 <!-- 
-                    FIX: Changed to FULL ABSOLUTE Google Site URL for home.
+                    FIX: Changed to relative link for GitHub Pages.
                     REMOVED target="_top".
                 -->
-                <a href="https://sites.google.com/view/leekijung/home#ds-portfolio" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-300">&larr; Back to Portfolio</a>
+                <a href="home.html#ds-portfolio" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-300">&larr; Back to Portfolio</a>
             </div>
 
             <!-- New wrapper for homepage aesthetic -->
@@ -224,7 +225,7 @@ plt.show()</code></pre>
                         <img src="https://i.ibb.co/4nW5FRFH/scatter.png" alt="scatter" border="0" class="w-full h-auto object-contain">
                     </div>
                     <div class="w-full overflow-hidden rounded-md mb-6 shadow-md">
-                        <img src="https://i.ibb.co/VWFNS6Pf/corr.png" alt="corr" border="0" class="w-full h-auto object-contain">
+                        <img src="https_://i.ibb.co/VWFNS6Pf/corr.png" alt="corr" border="0" class="w-full h-auto object-contain">
                     </div>
                     <h3>Insights from Bivariate Analysis:</h3>
                     <ul>
@@ -234,7 +235,8 @@ plt.show()</code></pre>
 
                     <h2>6. Hierarchical Clustering</h2>
 <pre><code># Perform hierarchical clustering
-hier_clust = linkage(wine_fs_scaled, method='ward')
+# FIX: Corrected typo from wine_fs_scaled to wine_df_scaled
+hier_clust = linkage(wine_df_scaled, method='ward')
 
 # Plot Dendrogram
 plt.figure(figsize=(12, 9))
@@ -341,8 +343,8 @@ plt.show()</code></pre>
         const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
-                // No need to hide, as the page is navigating away
-                // mobileMenu.classList.add('hidden');
+                // This will hide the menu when a link is clicked
+                mobileMenu.classList.add('hidden');
             });
         });
     </script>
