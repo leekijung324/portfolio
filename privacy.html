@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX: New Title -->
+    <title>Case Study: Privacy Management | Ki Jung Lee, PhD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FIX: Added MathJax scripts to render LaTeX (Greek letters, symbols) -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- FIX: Copied styles from clustering.html -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .case-study-content h2 {
+            font-size: 1.5rem; /* 2xl */
+            font-weight: 700; /* bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-top: 3rem; /* mt-12 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .case-study-content h3 {
+            font-size: 1.25rem; /* xl */
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* text-gray-800 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .case-study-content p {
+            font-size: 1.125rem; /* lg */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            line-height: 1.75; /* leading-relaxed */
+        }
+        .case-study-content ul {
+            list-style-type: disc;
+            list-style-position: outside;
+            font-size: 1.125rem; /* lg */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-left: 1.5rem; /* pl-6 */
+        }
+        .case-study-content ul li + li {
+             margin-top: 0.5rem; /* space-y-2 */
+        }
+        .case-study-content pre {
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #1f2937; /* text-gray-800 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow-x: auto;
+            margin-bottom: 1.5rem; /* mb-6 */
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+            border: 1px solid #d1d5db; /* border border-gray-300 */
+        }
+        .case-study-content code {
+            font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body id="top" class="bg-gray-50 text-gray-700">
+
+    <!-- Header & Navigation --><header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- FIX: All links are relative for GitHub Pages -->
+            <a href="home.html#top" class="text-xl font-bold text-gray-800">Ki Jung Lee, PhD</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="home.html#about" class="text-gray-600 hover:text-blue-600">About</a>
+                <a href="home.html#ux-portfolio" class="text-gray-600 hover:text-blue-600">UX Research</a>
+                <a href="home.html#ds-portfolio" class="text-gray-600 hover:text-blue-600">Data Science</a>
+                <a href="home.html#publications" class="text-gray-600 hover:text-blue-600">Publications</a>
+                <a href="home.html#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu --><div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4">
+            <a href="home.html#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+            <a href="home.html#ux-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">UX Research</a>
+            <a href="home.html#ds-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">Data Science</a>
+            <a href="home.html#publications" class="block py-2 text-gray-600 hover:text-blue-600">Publications</a>
+            <a href="home.html#contact" class="block mt-2 text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+        </div>
+    </header>
+
+    <!-- Case Study Main Content --><main class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-8">
+                <!-- FIX: Updated back link to UX portfolio section -->
+                <a href="home.html#ux-portfolio" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-300">&larr; Back to Portfolio</a>
+            </div>
+
+            <!-- New wrapper for homepage aesthetic -->
+            <div class="bg-white shadow-xl rounded-lg p-8 md:p-12">
+                <article class="case-study-content">
+                    <!-- FIX: New Title from PDF -->
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+                        Privacy Management in Online Social Networks: UX Research Case Study
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        <strong>Ki Jung Lee</strong> | October 24, 2025
+                    </p>
+
+                    <!-- All content below is parsed from the PDF -->
+                    <h2>Summary</h2>
+                    <p>
+                        This quantitative research examined how five distinct dimensions—cultural traits, gender orientation, motivations, communication context, and risk perception—shape privacy management attitudes on social networks. The study validated Communication Privacy Management Theory (CPM) in digital contexts, revealing that privacy management is multidimensional and complex, not driven by a single lever.
+                    </p>
+                    <p>
+                        Key findings: users with collectivist cultural traits are more open to sharing (aligning with group harmony values), gender traits surprisingly do not predict privacy attitudes, and social norms mediate the relationship between social pressure and privacy intentions more powerfully than direct risk assessment.
+                    </p>
+
+                    <h2>1. Background & Problem</h2>
+                    <p>
+                        This 2012 study examined privacy management in emerging social networks like Facebook and Twitter. Despite privacy threats (unintended audience reach, information leakage, public identity exposure), users continued over-sharing. The discrepancy couldn't be explained by simple risk-benefit calculations.
+                    </p>
+                    <p>
+                        <strong>Research Question:</strong> What combination of cultural, psychological, motivational, contextual, and perceptual factors explains how users manage privacy in social networks?
+                    </p>
+
+                    <h2>2. Research Approach</h2>
+                    <h3>Theoretical Framework</h3>
+                    <p>
+                        Communication Privacy Management (CPM) Theory provided the foundation, examining how people set privacy rules based on culture, gender, motivation, context, and risk/benefit evaluation. The study operationalized CPM across five dimensions to understand privacy attitudes comprehensively.
+                    </p>
+                    <h3>Methodology</h3>
+                    <ul>
+                        <li><strong>Method:</strong> Structural Equation Modeling (SEM) with Confirmatory Factor Analysis</li>
+                        <li><strong>Sample:</strong> 346 participants (after data screening from 400)</li>
+                        <li><strong>Demographics:</strong> Primarily U.S.-based, college-educated, ages 20-49</li>
+                        <li><strong>Tools:</strong> SPSS, AMOS (SEM analysis)</li>
+                    </ul>
+
+                    <h2>3. Key Research Findings</h2>
+                    
+                    <h3>DIMENSION 1: Cultural Orientation</h3>
+                    <p>
+                        <strong>Finding:</strong> Users with stronger collectivist cultural traits are less inclined to develop attitudes favoring privacy control. ($\beta=-.13$, $p<.05$)
+                    </p>
+                    <p>
+                        <strong>What this means:</strong> Collectivist users prioritize group harmony and social connections over individual privacy protection. They view sharing within social circles as strengthening social bonds and maintaining collective well-being, not as a privacy risk.
+                    </p>
+                    <p>
+                        <strong>Business Implication:</strong> Segmenting by cultural orientation is essential. Collectivist-oriented users need privacy messaging centered on "group protection" and "community trust," not individual risk mitigation.
+                    </p>
+
+                    <h3>DIMENSION 2: Gender Orientation</h3>
+                    <p>
+                        <strong>Finding:</strong> Gender role orientation (masculine or feminine traits) does NOT significantly predict privacy control attitudes. ($\beta=.06$ masculine, $\beta=.17$ feminine, both NS)
+                    </p>
+                    <p>
+                        <strong>Why this challenges assumptions:</strong> This finding reveals that other factors—cultural background, individual motivations, communication style—are far more influential than gender traits in shaping privacy management.
+                    </p>
+                    <p>
+                        <strong>Business Implication:</strong> Don't design privacy features based on gender assumptions. Gender-neutral privacy design is not just inclusive—it's validated by research.
+                    </p>
+
+                    <h3>DIMENSION 3: User Motivations</h3>
+                    <p>
+                        <strong>Communication Motivation ($\beta=.21$, $p<.05$):</strong> Users motivated to communicate tend to have MORE positive attitudes toward controlling their privacy. They recognize that maintaining trust requires careful privacy management.
+                    </p>
+                    <p>
+                        <strong>Self-Presentation Motivation ($\beta=-.59$, $p<.001$):</strong> Users motivated by self-presentation (projecting an image) are LESS inclined to control privacy. The desire to present oneself positively overrides privacy concerns.
+                    </p>
+                    <p>
+                        <strong>Documenting Motivation ($\beta=.18$ NS):</strong> Users motivated to use social media as a personal archive show NO significant effect on privacy attitudes.
+                    </p>
+
+                    <h3>DIMENSION 4: Communication Context</h3>
+                    <p>
+                        <strong>Unwillingness to Communicate ($\beta=.80,$ $p<.001$):</strong> Users reluctant to communicate online show significantly MORE favorable attitudes toward privacy control.
+                    </p>
+                    <p>
+                        <strong>Willingness to Communicate ($\beta=-.81$, $p<.001$):</strong> Users willing and eager to communicate show significantly LESS favorable attitudes toward privacy control.
+                    </p>
+                    <p>
+                        <strong>Positive Self-Disclosure ($\beta=.65$, p<.001):</strong> Users who share positive information tend to have MORE favorable attitudes toward privacy control, likely to protect them from unwanted attention.
+                    </p>
+                    <p>
+                        <strong>Negative Self-Disclosure ($\beta=-.49$ $p<.05$):</strong> Users who share negative information show LESS favorable attitudes toward privacy control.
+                    </p>
+
+                    <h3>DIMENSION 5: Risk and Social Influence</h3>
+                    <p>
+                        <strong>Risk/Benefit Assessment ($\beta=-.07$, NS) NO DIRECT EFFECT:</strong> Users do not rationally calculate privacy risks. Traditional privacy education emphasizing "Here are the risks" will underperform because risk perception doesn't drive attitudes.
+                    </p>
+                    <p>
+                        <strong>Social Pressure & Attitudes (Mediated Effect):</strong> Social pressure works indirectly. Seeing peers control privacy shapes your *belief* that privacy control is important, which then shapes your *intention* to manage privacy.
+                    </p>
+                    <p>
+                        <strong>Business Implication:</strong> Social norm messaging (e.g., "88% of your network controls privacy settings") works by influencing beliefs first. Leverage social proof to shape attitudes, which then drive behavior.
+                    </p>
+                    
+                    <h2>4. Understanding Privacy as Multidimensional</h2>
+                    <p>Your research reveals that no single factor drives privacy management. Instead, five dimensions interact:</p>
+                    <ul>
+                        <li><strong>Cultural Level:</strong> Are you from a culture emphasizing individual or collective values?</li>
+                        <li><strong>Individual Level:</strong> What are your natural communication comfort, motivations, and disclosure patterns?</li>
+                        <li><strong>Social Level:</strong> What privacy norms do you perceive in your peer group?</li>
+                        <li><strong>Perceptual Level:</strong> Do you perceive risks? (This alone doesn't predict behavior)</li>
+                    </ul>
+                    <p>Users navigate privacy decisions by synthesizing across all five dimensions, not by calculating risk in isolation.</p>
+
+                    <h2>5. Product Implications & Design Recommendations</h2>
+                    
+                    <h3>Recommendation 1: Culturally Adaptive Privacy Frameworks</h3>
+                    <p>Implement culturally aligned privacy messaging and defaults. For Individualistic Users, emphasize individual agency. For Collectivistic Users, emphasize community relationships and collective well-being.</p>
+                    
+                    <h3>Recommendation 2: Gender-Neutral Privacy Design</h3>
+                    <p>Remove gender-based assumptions from privacy features. Gender traits don't predict privacy attitudes. Focus on communication style and motivations instead.</p>
+
+                    <h3>Recommendation 3: Motivation-Based Privacy Personalization</h3>
+                    <p>Detect primary user motivations and provide aligned guidance. Self-Presentation users, for example, are highest-risk and need proactive nudges before posting ("Who should see this?").</p>
+
+                    <h3>Recommendation 4: Communication-Context-Aware Privacy Defaults</h3>
+                    <p>Detect communication patterns (e.g., "Reluctant Communicator, Positive Discloser") and auto-suggest aligned privacy settings (e.g., Restrictive default).</p>
+
+                    <h3>Recommendation 5: Reframe Social Influence to Shape Attitudes</h3>
+                    <p>Use social proof to influence attitudes, not just compliance. Instead of "X% of users have settings on," try "X% of users in your network believe privacy control strengthens relationships."</p>
+
+                    <h2>6. Study Limitations</h2>
+                    <ul>
+                        <li><strong>Measurement Challenge:</strong> A survey of 200+ items caused fatigue and dropouts. Future studies should prioritize dimensional measurement.</li>
+                        <li><strong>Behavioral Gap:</strong> The study measured intentions, not observed actions. Future work should validate if these profiles predict actual privacy behavior.</li>
+                        <li><strong>Risk Perception:</strong> It's difficult to quantify risk. Future research should explore *why* users discount risk information (e.g., optimism bias).</li>
+                    </ul>
+
+                    <h2>7. Conclusion</h2>
+                    <p>Privacy management in social networks is fundamentally multidimensional. Rather than asking "How do we make privacy simpler?"—which assumes one-size-fits-all design—we should ask:</p>
+                    <ol class="list-decimal list-outside pl-6 mb-6 text-lg text-gray-700 leading-relaxed">
+                        <li class="mb-2">What's the user's cultural orientation? Adapt messaging and defaults.</li>
+                        <li class="mb-2">What motivates this user? Their goals create different privacy priorities.</li>
+                        <li class="mb-2">What's their communication comfort level? Align defaults with natural patterns.</li>
+                        <li class="mb-2">What social norms will shape their attitudes? Use social proof to influence beliefs.</li>
+                    </ol>
+                    <p>This five-dimensional framework provides an evidence-based foundation for privacy design that respects users' diverse values, motivations, and communication styles.</p>
+
+                </article>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer --><footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Ki Jung Lee, PhD. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when a link is clicked
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>
