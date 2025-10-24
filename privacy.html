@@ -11,8 +11,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- FIX: Added MathJax scripts to render LaTeX (Greek letters, symbols) -->
+    <!-- FIX: Added MathJax scripts AND configuration -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <!-- 1. Configure MathJax to recognize $...$ -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <!-- 2. Load the MathJax library -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- FIX: Copied styles from clustering.html -->
