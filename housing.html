@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Housing Price Regression | Ki Jung Lee, PhD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Add MathJax scripts and configuration for formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <!-- 1. Configure MathJax to recognize $...$ -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <!-- 2. Load the MathJax library -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Copied styles from other case studies -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .case-study-content h2 {
+            font-size: 1.5rem; /* 2xl */
+            font-weight: 700; /* bold */
+            color: #1f2937; /* text-gray-800 */
+            margin-top: 3rem; /* mt-12 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .case-study-content h3 {
+            font-size: 1.25rem; /* xl */
+            font-weight: 600; /* semibold */
+            color: #1f2937; /* text-gray-800 */
+            margin-top: 2rem; /* mt-8 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .case-study-content p {
+            font-size: 1.125rem; /* lg */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            line-height: 1.75; /* leading-relaxed */
+        }
+        .case-study-content ul {
+            list-style-type: disc;
+            list-style-position: outside;
+            font-size: 1.125rem; /* lg */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-left: 1.5rem; /* pl-6 */
+        }
+        .case-study-content ul li + li {
+             margin-top: 0.5rem; /* space-y-2 */
+        }
+        .case-study-content ol {
+            list-style-type: decimal;
+            list-style-position: outside;
+            font-size: 1.125rem; /* lg */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-left: 1.5rem; /* pl-6 */
+        }
+         .case-study-content ol li + li {
+             margin-top: 0.5rem; /* space-y-2 */
+        }
+        .case-study-content pre {
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #1f2937; /* text-gray-800 */
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow-x: auto;
+            margin-bottom: 1.5rem; /* mb-6 */
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+            border: 1px solid #d1d5db; /* border border-gray-300 */
+        }
+        .case-study-content code {
+            font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body id="top" class="bg-gray-50 text-gray-700">
+
+    <!-- Header & Navigation --><header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="home.html#top" class="text-xl font-bold text-gray-800">Ki Jung Lee, PhD</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="home.html#about" class="text-gray-600 hover:text-blue-600">About</a>
+                <a href="home.html#ux-portfolio" class="text-gray-600 hover:text-blue-600">UX Research</a>
+                <a href="home.html#ds-portfolio" class="text-gray-600 hover:text-blue-600">Data Science</a>
+                <a href="home.html#publications" class="text-gray-600 hover:text-blue-600">Publications</a>
+                <a href="home.html#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu --><div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4">
+            <a href="home.html#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+            <a href="home.html#ux-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">UX Research</a>
+            <a href="home.html#ds-portfolio" class="block py-2 text-gray-600 hover:text-blue-600">Data Science</a>
+            <a href="home.html#publications" class="block py-2 text-gray-600 hover:text-blue-600">Publications</a>
+            <a href="home.html#contact" class="block mt-2 text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Contact</a>
+        </div>
+    </header>
+
+    <!-- Case Study Main Content --><main class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-8">
+                <!-- Updated back link to DS portfolio section -->
+                <a href="home.html#ds-portfolio" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-300">&larr; Back to Portfolio</a>
+            </div>
+
+            <!-- New wrapper for homepage aesthetic -->
+            <div class="bg-white shadow-xl rounded-lg p-8 md:p-12">
+                <article class="case-study-content">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+                        Key Drivers of Housing Prices: Understanding the Impact of Property Features on Sale Value
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        <strong>Ki Jung Lee</strong>
+                    </p>
+
+                    <h2>Executive Summary</h2>
+                    <p>
+                        This case study presents a comprehensive multiple regression analysis examining the factors that influence housing prices in Cincinnati. Through systematic data cleaning, exploratory analysis, and model development, we identified key predictors of residential property values. The analysis demonstrates that structural features—particularly square footage, number of bedrooms, and lot size—are the strongest drivers of home prices. The final regression model accounts for 43.7% of the variance in sale prices and provides valuable insights for homeowners, buyers, and real estate professionals seeking to understand residential property valuations.
+                    </p>
+
+                    <h2>1. Introduction: Description of Goals</h2>
+                    <p>
+                        Housing prices are affected by several factors, which include the size, quality, and desirability of a home. To understand the factors that influence housing values, this study aims to investigate the relationship between key characteristics of residential dwellings and their eventual sale prices. The analysis addresses two core research questions:
+                    </p>
+                    <ol>
+                        <li>How are the number of bedrooms, number of bathrooms, year built, square footage, lot size, and number of parking spots related to the sale price of a home?</li>
+                        <li>Which housing characteristics have the highest impact on sale price?</li>
+                    </ol>
+                    <p>
+                        To analyze these questions, this study performs a multiple regression analysis using housing sales data. The findings have implications for homeowners seeking to optimize their property's value, home buyers evaluating pricing, and policymakers crafting effective housing market measures.
+                    </p>
+
+                    <h2>2. Data Collection and Cleaning</h2>
+                    <h3>2.1 Data Source and Overview</h3>
+                    <p>
+                        The dataset comprises housing sales data from Cincinnati containing property characteristics and corresponding sale prices. The raw data includes 11 variables: Contributor, Address, Zipcode, Price, Date, Numbed (number of bedrooms), Numbath (number of bathrooms), Yearbuilt, Sqft (square footage), Lotsize (lot size in square feet), and Numparking (number of parking spots).
+                    </p>
+                    <h3>2.2 Data Cleaning Process</h3>
+                    <p>Data cleaning consists of two main steps: data preprocessing and outlier removal.</p>
+                    <p><strong>Step 1: Preprocessing</strong></p>
+                    <ul>
+                        <li><strong>Column standardization:</strong> Column names were created as a names vector and passed to read_csv() to ensure proper column labels during import.</li>
+                        <li><strong>Data type conversion:</strong> The Numbath, Lotsize, and Numparking columns were converted to numeric data types.</li>
+                        <li><strong>Duplicate removal:</strong> Duplicate rows were removed by standardizing the Address column.</li>
+                        <li><strong>Missing value handling:</strong> Null values were removed by applying na.omit().</li>
+                    </ul>
+                    <p><strong>Step 2: Outlier Removal</strong></p>
+                    <p>Following preprocessing, filters were applied to remove observations with non-sensical or extreme values:</p>
+                    <ul>
+                        <li>Age is restricted to be greater than or equal to 0 (no future ages; created as 2024 - Yearbuilt)</li>
+                        <li>Square footage must be positive</li>
+                        <li>Square footage cannot exceed lot size</li>
+                        <li>Lot size cannot exceed 100,000 square feet</li>
+                        <li>Price must be greater than $10,000</li>
+                    </ul>
+                    <p>The final clean dataset contained 911 observations with 7 variables: Price, Numbed, Numbath, Age, Sqft, Lotsize, and Numparking.</p>
+                    
+                    <h3>2.3 R Code for Data Cleaning</h3>
+<pre><code>library(tidyverse)
+
+# Load data with proper column names
+names <- c("Contributor", "Address", "Zipcode", "Price", "Date", "Numbed",
+"Numbath", "Yearbuilt", "Sqft", "Lotsize", "Numparking")
+housing <- read_csv("Datasets/housing.csv", col_names=names, skip=1)
+
+#Convert data types
+housing <- housing %>%
+    mutate (Numbath = as.numeric (Numbath)) %>%
+    mutate (Lotsize = as.numeric(Lotsize)) %>%
+    mutate (Numparking = as.numeric (Numparking))
+
+# Remove duplicates
+housing$Address <- gsub(",","", housing$Address)
+housing$Address <- gsub("\\s+"," ", housing$Address)
+housing$Address <- tolower(housing$Address)
+housing <- housing[!duplicated (housing$Address),]
+
+# Remove null values
+housingtb <- na.omit(housing)
+
+# Create Age variable and apply outlier filters
+housingtb <- housingtb %>%
+    mutate(Age=(2024-Yearbuilt)) %>%
+    filter(Age >= 0, Sqft>0, Sqft<=Lotsize, Lotsize <=100000, Price >=10000) %>%
+    select(Price, Numbed, Numbath, Age, Sqft, Lotsize, Numparking)</code></pre>
+
+                    <h2>3. Exploratory Data Analysis</h2>
+                    <p>Exploratory data analysis (EDA) provides critical initial insights into the housing data prior to modeling. To understand the underlying relationships and patterns, visualizations including boxplots and scatterplot matrices were used.</p>
+                    
+                    <h3>3.1 Descriptive Statistics</h3>
+                    <p>The descriptive statistics reveal the characteristics of the housing market in Cincinnati:</p>
+<pre>
+Variable     N      Mean   Std Dev     Min   1st Quart    Median   3rd Quart         Max
+Price      911   347,688   247,476  10,001     200,000   295,000     425,000   2,200,000
+Numbed     911       3.4       0.9       1           3         3           4           6
+Numbath    911       2.1       0.9       1         1.5         2         2.5           5
+Age        911      39.5      20.7       1          21        38          56          95
+Sqft       911     2,095       874     500       1,300     1,900       2,700       5,600
+Lotsize    911     6,852     5,803     675       4,000     5,500       8,000     100,000
+Numparking 911       2.1       0.7       1           2         2           2           4
+</pre>
+
+                    <h3>3.2 Key Observations from EDA</h3>
+                    <ul>
+                        <li>Spatial variables like square footage and lot size exhibited positive skew with some high values.</li>
+                        <li>Temporal features like age were more symmetrically distributed, ranging from 1 to 95 years with a median of 38 years.</li>
+                        <li>The distribution of Price was highly skewed with values ranging from $10,001 to $2.2 million and a median of $295,000.</li>
+                        <li>Stronger positive correlations were apparent between square footage and number of bedrooms.</li>
+                        <li>Notable collinearity was observed between Numbed (bedrooms) and Numbath (bathrooms), which required careful attention.</li>
+                    </ul>
+
+                    <h3>3.3 R Code for EDA</h3>
+<pre><code>library(vtable)
+library(psych)
+library(patchwork)
+
+# Descriptive statistics
+sumtable(housingtb, summ.names =c("N", "Mean", "Std Dev", "Min", "1st Quart",
+"Median", "3rd Quart", "Max"), add.median = TRUE)
+
+# Boxplots
+housingtb %>% boxplot()
+
+# Pairwise scatter plot and correlation
+pairs.panels (housingtb)</code></pre>
+
+                    <h2>4. Multiple Linear Regression Analysis</h2>
+                    <h3>4.1 Methodology</h3>
+                    <p>A multiple linear regression is conducted with Price as the dependent variable and Numbed, Numbath, Age, Sqft, Lotsize, and Numparking as predictor variables.</p>
+                    
+                    <h3>4.2 Initial Model with All Variables</h3>
+<pre><code>model <- lm(Price ~ Numbed+Numbath+Age+Sqft+Lotsize+Numparking, data=housingtb)
+summary(model)</code></pre>
+                    <p><strong>Model Summary Output:</strong></p>
+<pre>
+Call:
+lm(formula = Price ~ Numbed + Numbath + Age + Sqft + Lotsize + 
+    Numparking, data = housingtb)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-639817  -101597   -15236    83151  1647606 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -102313.41   67491.89  -1.515 0.130170    
+Numbed       142755.40   30159.57   4.734 2.44e-06 ***
+Numbath      -21156.31   29945.43  -0.707 0.480085    
+Age           -3128.79    1091.32  -2.866 0.004191 ** Sqft            123.53      15.30   8.071 3.40e-15 ***
+Lotsize           1.57       0.48   3.265 0.001124 ** Numparking    36626.62   21038.15   1.741 0.081907 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 165100 on 904 degrees of freedom
+Multiple R-squared:  0.4472,	Adjusted R-squared:  0.4437 
+F-statistic: 132.4 on 6 and 904 DF,  p-value: < 2.2e-16
+</pre>
+                    <p><strong>Key Findings from Initial Model:</strong></p>
+                    <ul>
+                        <li>Sqft (square footage) has the largest estimated coefficient ($123.53).</li>
+                        <li>Numbath, Sqft, and Lotsize are statistically significant predictors ($p<0.05$).</li>
+                        <li>Numbath is not statistically significant ($p=0.480$), which is surprising.</li>
+                    </ul>
+
+                    <h3>4.3 Addressing Multicollinearity: Model Comparison</h3>
+                    <p>To investigate the non-significance of Numbed, a simple linear regression was conducted, which showed it *is* a significant predictor when alone. This indicates multicollinearity with Numbath. A second model was tested without Numbath.</p>
+<pre><code>model2 <- lm(Price ~ Numbed + Age + Sqft + Lotsize + Numparking, data=housingtb)
+summary(model2)</code></pre>
+                    <p><strong>Model 2 Summary (Without Numbath):</strong></p>
+<pre>
+Call:
+lm(formula = Price ~ Numbed + Age + Sqft + Lotsize + Numparking, 
+    data = housingtb)
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -72533.36   62789.34  -1.155 0.248384    
+Numbed       119937.47   20598.14   5.825 7.10e-09 ***
+Age           -3092.11    1092.31  -2.830 0.004709 ** Sqft            128.08      15.02   8.523  < 2e-16 ***
+Lotsize           1.56       0.48   3.237 0.001218 ** Numparking    38471.06   21113.65   1.822 0.068883 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 165200 on 905 degrees of freedom
+Multiple R-squared:  0.4463,	Adjusted R-squared:  0.4437 
+F-statistic: 171.6 on 5 and 905 DF,  p-value: < 2.2e-16
+</pre>
+                    <p>When Numbath is removed, Numbed becomes a statistically significant predictor ($p < 0.001$).</p>
+                    
+                    <h3>4.4 Transformed Models for Assumption Checking</h3>
+                    <p>To address violations of homoscedasticity and normality, the skewed Price variable was log-transformed.</p>
+<pre><code>data_frame <- housingtb %>% as.data.frame()
+
+# Model 3: Log-transformed Price with all variables including Numbath
+model3 <- lm(log(Price) ~ Numbed+Numbath+Age+Sqft+Lotsize+Numparking, data=data_frame)
+summary(model3)
+
+# Model 4: Log-transformed Price without Numbath
+model4 <- lm(log(Price) ~ Numbed + Age + Sqft + Lotsize + Numparking, data=data_frame)
+summary(model4)</code></pre>
+                    <p><strong>Model 4 Summary (Log Price without Numbath):</strong></p>
+<pre>
+Call:
+lm(formula = log(Price) ~ Numbed + Age + Sqft + Lotsize + Numparking, 
+    data = data_frame)
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 11.3023969  0.1912068  59.094  < 2e-16 ***
+Numbed       0.1210686  0.0627820   1.927  0.054451 .  
+Age         -0.0115755  0.0033271  -3.479  0.000528 ***
+Sqft         0.0004202  0.0000457   9.193  < 2e-16 ***
+Lotsize      0.0000050  0.0000015   3.345  0.000855 ***
+Numparking   0.1271922  0.0641844   1.982  0.047767 * ---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5035 on 905 degrees of freedom
+Multiple R-squared:  0.4641,	Adjusted R-squared:  0.4616 
+F-statistic: 173.3 on 5 and 905 DF,  p-value: < 2.2e-16
+</pre>
+                    <p>The log transformation improved model fit and assumption satisfaction. Both models show improved R-squared values.</p>
+
+                    <h2>5. Residual Analysis and Model Diagnostics</h2>
+                    <p>Model adequacy checking ensures the assumptions of the linear regression model (LINE) are reasonably satisfied. Residual plots for the initial models (Model 1 & 2) showed a funnel shape, indicating unequal error variance (heteroscedasticity). Q-Q plots also showed heavy-tailed distributions, violating the normality assumption. The log transformation of Price (in Models 3 & 4) helped to address these issues.</p>
+
+                    <h2>6. Model Validation</h2>
+                    <h3>6.1 Cross-Validation Methodology</h3>
+                    <p>Five-fold cross-validation ($m=5$) was performed to compare the two transformed models (Model 3 with Numbath and Model 4 without Numbath) using PRESS (Prediction Error Sum of Squares), MSPE (Mean Squared Prediction Error), and Prediction R-squared.</p>
+                    
+                    <h3>6.2 Cross-Validation Results</h3>
+<pre>
+Model                       PRESS     MSPE   Prediction $R^2$
+Model 3 (with Numbath)    206.89   0.2271          0.5199
+Model 4 (without Numbath) 248.34   0.2726          0.4237
+</pre>
+                    <h3>6.3 Model Comparison and Selection</h3>
+                    <p>Based on the cross-validation metrics, Model 3 (with Numbath) demonstrates superior predictive performance. However, Model 4 is recommended as the final model for practical application because it is more parsimonious (fewer predictors) and provides more natural interpretation without the multicollinearity complications.</p>
+
+                    <h2>7. Key Findings and Insights</h2>
+                    <h3>7.1 Most Influential Predictors</h3>
+                    <ol>
+                        <li><strong>Square Footage (Sqft):</strong> The most powerful predictor. Each additional square foot increases price by approximately $123.53.</li>
+                        <li><strong>Number of Bedrooms (Numbed):</strong> The second most influential. Each additional bedroom increases price by approximately $119,937.</li>
+                        <li><strong>Lot Size (Lotsize):</strong> A significant predictor. Each additional square foot of lot size increases price by approximately $1.57.</li>
+                        <li><strong>Age:</strong> Statistically significant with a negative effect. Each additional year of age decreases price by approximately $3,092.</li>
+                    </ol>
+                    <h3>7.2 Model Performance</h3>
+                    <p>The final model (Model 4) explains 46.41% of the variance in housing prices. The remaining 53.59% is attributable to other factors not captured, such as neighborhood, condition, and amenities.</p>
+                    <h3>7.3 Unexpected Findings</h3>
+                    <p>The number of bathrooms (Numbath) lacked independent significance. This counterintuitive finding is due to high multicollinearity with the number of bedrooms—bathrooms tend to increase proportionally with bedrooms, reducing the independent contribution of the bathroom variable.</p>
+
+                    <h2>8. Recommendations</h2>
+                    <ul>
+                        <li><strong>For Real Estate Professionals:</strong> Emphasize properties' square footage prominently in marketing materials, as this is the strongest value driver.</li>
+                        <li><strong>For Homeowners:</strong> Home improvement investments should prioritize increases in square footage or functional bedroom space, which demonstrate the strongest market impact.</li>
+                        <li><strong>For Investors:</strong> Focus on properties where square footage relative to price is attractive. Older properties with deferred maintenance may offer value opportunities.</li>
+                    </ul>
+
+                    <h2>9. Limitations and Future Work</h2>
+                    <h3>9.1 Study Limitations</h3>
+                    <ul>
+                        <li><strong>Sample bias:</strong> The sampling process appeared biased toward recently sold properties from Zillow.com.</li>
+                        <li><strong>Geographic specificity:</strong> Results are specific to Cincinnati and cannot be generalized.</li>
+                        <li><strong>Missing variables:</strong> The model excludes important qualitative factors like property condition, neighborhood characteristics, and school district ratings.</li>
+                    </ul>
+                    <h3>9.2 Potential Model Improvements</h3>
+                    <p>Future work could incorporate additional predictors (e.g., neighborhood data, school ratings), explore advanced modeling techniques (e.g., random forests), and implement spatial analysis to improve predictive power.</p>
+
+                    <h2>10. Conclusion</h2>
+                    <p>This regression analysis confirms that structural features are the primary drivers of housing prices in Cincinnati, with square footage, number of bedrooms, and lot size exhibiting the strongest relationships with sale prices. The final recommended model (Model 4 with log-transformed price) accounts for 46.41% of the variance in housing prices. These findings provide a practical, interpretable framework for understanding Cincinnati housing prices and supporting data-driven decision-making in the real estate market.</p>
+                    
+                    <h2>Appendix: Technical Specifications</h2>
+                    <h3>Statistical Models</h3>
+                    <p>Multiple Linear Regression (Baseline):</p>
+                    $$ \hat{Price} = \beta_0 + \beta_1 \cdot Numbed + \beta_2 \cdot Age + \beta_3 \cdot Sqft + \beta_4 \cdot Lotsize + \beta_5 \cdot Numparking + \epsilon $$
+                    <p>Log-Transformed Regression (Final Model):</p>
+                    $$ \ln(\hat{Price}) = \beta_0 + \beta_1 \cdot Numbed + \beta_2 \cdot Age + \beta_3 \cdot Sqft + \beta_4 \cdot Lotsize + \beta_5 \cdot Numparking + \epsilon $$
+                    <p>Cross-Validation Formula:</p>
+                    $$ MSPE = \frac{1}{n}\sum_{i=1}^{n} (y_i-\hat{y}_{(-i)})^2 $$
+                    
+                    <h3>Software and Packages</h3>
+                    <ul>
+                        <li><strong>Language:</strong> R 4.x</li>
+                        <li><strong>Key Packages:</strong> tidyverse, ggplot2, vtable, psych, patchwork, DAAG</li>
+                    </ul>
+
+                </article>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer --><footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Ki Jung Lee, PhD. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when a link is clicked
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>
